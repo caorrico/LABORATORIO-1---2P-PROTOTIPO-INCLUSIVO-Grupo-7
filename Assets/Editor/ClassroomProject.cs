@@ -117,6 +117,9 @@ public static class ClassroomProject
             var lesson = UnityEngine.Object.FindFirstObjectByType<ClassroomLesson>();
             var player = lesson.player; var body = player.GetComponent<CharacterController>();
             Require(UnityEngine.Object.FindObjectsByType<Blackboard>(FindObjectsSortMode.None).Length == 1, "One interactive board");
+            Require(lesson.InMenu && player.Reading, "Starts in topic menu with navigation paused");
+            Require(EcuadorContent.Levels.Length == 3, "Exactly three levels");
+            lesson.EnterLevel(0);
             Require(!lesson.CanInteract(), "Board inaccessible from starting position");
             var initial = player.transform.position; player.Move(Vector2.up,.1f);
             Require(player.transform.position.z > initial.z, "Forward movement");
@@ -124,9 +127,32 @@ public static class ClassroomProject
             Physics.SyncTransforms();
             Require(lesson.CanInteract(), "Raycast reaches board at reading distance");
             lesson.Interact(); Require(lesson.Open && player.Reading, "Interaction opens lesson and pauses navigation");
-            lesson.Next(); lesson.Next(); Require(lesson.Page == 2, "Lesson navigation");
-            lesson.Answer(false); Require(!lesson.Completed, "Incorrect answer permits retry");
-            lesson.Answer(true); Require(lesson.Completed, "Correct answer completes lesson");
+            lesson.StartExam(); Require(!lesson.ExamStarted, "Exam locked before exploring and practicing");
+            for (int level = 0; level < EcuadorContent.Levels.Length; level++) {
+                lesson.EnterLevel(level);
+                body.enabled = false; player.transform.position = new Vector3(0,.05f,4.5f); body.enabled = true; Physics.SyncTransforms();
+                lesson.Interact();
+                for (int card = 0; card < lesson.Level.Cards.Length; card++) lesson.SelectCard(card);
+                lesson.AnswerPractice((lesson.Level.Practice.Correct+1)%3);
+                Require(!lesson.ReadyForExam, "Wrong practice permits retry, level " + level);
+                lesson.AnswerPractice(lesson.Level.Practice.Correct);
+                Require(lesson.ReadyForExam, "Exploration and correct practice unlock exam, level " + level);
+                lesson.StartExam(); lesson.NextQuestion(); Require(lesson.QuestionIndex == 0, "Cannot skip unanswered question");
+                for (int q = 0; q < lesson.Level.Exam.Length; q++) {
+                    lesson.SubmitAnswer(lesson.Level.Exam[q].Correct); int score = lesson.Score;
+                    lesson.SubmitAnswer(lesson.Level.Exam[q].Correct);
+                    Require(lesson.Score == score, "Repeated confirmation cannot inflate score");
+                    lesson.NextQuestion();
+                }
+                Require(lesson.Completed && lesson.Score == 3 && lesson.BestScores[level] == 3, "Perfect score and result, level " + level);
+                lesson.StartExam(); Require(lesson.Score == 0 && !lesson.Completed, "Retry resets score");
+                for (int q = 0; q < lesson.Level.Exam.Length; q++) {
+                    lesson.SubmitAnswer((lesson.Level.Exam[q].Correct+1)%3); lesson.NextQuestion();
+                }
+                Require(lesson.Completed && lesson.Score == 0 && lesson.BestScores[level] == 3, "Wrong answers score zero and preserve best, level " + level);
+                lesson.ReturnToMenu(); Require(lesson.InMenu && player.Reading && !lesson.Open, "Menu stops navigation");
+            }
+            lesson.EnterLevel(0);
             lesson.Close(); Require(!lesson.Open && !player.Reading, "Closing restores navigation");
             body.enabled = false; player.transform.position = new Vector3(0,.05f,6.1f); body.enabled = true;
             Physics.SyncTransforms(); for (int i=0;i<30;i++) player.Move(Vector2.up,.05f);

@@ -11,7 +11,11 @@ namespace AulaInclusiva
         float pitch, vertical;
         CharacterController body;
         void Awake() { body = GetComponent<CharacterController>(); }
-        void Start() { Capture(true); }
+        void Start() { Capture(!Reading); }
+        public void ResetPosition() {
+            body.enabled = false; transform.SetPositionAndRotation(new Vector3(0,.05f,-4.8f), Quaternion.identity);
+            view.transform.localRotation = Quaternion.identity; pitch = 0; vertical = 0; body.enabled = true;
+        }
         public void Capture(bool capture) {
             Cursor.lockState = capture ? CursorLockMode.Locked : CursorLockMode.None;
             Cursor.visible = !capture;
