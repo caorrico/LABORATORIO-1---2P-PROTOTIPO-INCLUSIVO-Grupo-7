@@ -1,0 +1,12 @@
+PASS: One interactive board
+PASS: Board inaccessible from starting position
+PASS: Forward movement
+PASS: Raycast reaches board at reading distance
+PASS: Interaction opens lesson and pauses navigation
+PASS: Lesson navigation
+PASS: Incorrect answer permits retry
+PASS: Correct answer completes lesson
+PASS: Closing restores navigation
+PASS: Board collider blocks movement
+AULA_SMOKE_TEST_PASSED
+AULA_WINDOWS_BUILD_PASSED
