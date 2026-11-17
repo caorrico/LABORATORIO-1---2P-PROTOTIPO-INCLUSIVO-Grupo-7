@@ -136,6 +136,3 @@ public static class ClassroomProject
         } catch (Exception exception) { Debug.LogException(exception); EditorApplication.Exit(1); }
     }
 }
-
-
-
