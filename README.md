@@ -1,73 +1,89 @@
-# Aula Inclusiva 3D
+# Aula Inclusiva 3D · Ecuador
 
-Prototipo universitario del Grupo 7 para personas sordas o con discapacidad auditiva. Aula en primera persona con una lección escrita sobre comunicación inclusiva. No requiere audio, micrófono, cuenta ni servicios externos.
+Prototipo universitario del Grupo 7 para aprender cultura general ecuatoriana sin depender del audio. Incluye **exactamente tres niveles**, selección de tema antes de entrar al aula, fichas ilustradas interactivas y un examen final por nivel.
 
 ## Abrir y ejecutar
 
-1. Instala **Unity 6.0 LTS, versión 6000.0.80f1**, mediante Unity Hub (es la versión instalada utilizada para este proyecto).
-2. Clona este repositorio. En Unity Hub selecciona **Add > Add project from disk** y elige la carpeta raíz que contiene `Assets`, `Packages` y `ProjectSettings`.
-3. Espera a que termine la importación. Abre `Assets/Scenes/AulaInclusiva.unity`.
-4. Pulsa **Play**, haz clic en la vista Game y camina por el pasillo central hacia la pizarra.
-5. A menos de 3,2 metros, apunta al centro de la pizarra y presiona **E**. Lee las tres páginas y responde la pregunta. Puedes repetir la lectura sin límite de tiempo.
+1. Instala **Unity 6.0 LTS 6000.0.80f1** con Unity Hub.
+2. Clona el repositorio. En Hub selecciona **Add > Add project from disk** y elige la raíz que contiene `Assets`, `Packages` y `ProjectSettings`.
+3. Espera la importación, abre `Assets/Scenes/AulaInclusiva.unity` y pulsa **Play**.
+4. En el menú, elige uno de los tres temas. El movimiento permanece bloqueado hasta elegirlo.
+5. Camina por el pasillo central, acércate a la pizarra y presiona **E** cuando aparezca el aviso.
+6. Explora todas las fichas de la clase y responde correctamente la práctica para habilitar el examen. La práctica permite reintentos y no suma puntos.
+7. En el examen selecciona una respuesta y pulsa **Confirmar respuesta**. Lee la explicación y avanza manualmente. Al final verás tu score, porcentaje y revisión de respuestas.
+8. Repite el examen, repasa la clase o vuelve al menú para elegir otro tema.
 
-No hay que crear objetos ni asignar referencias manualmente. La escena ya está guardada y añadida a la lista de compilación. Se utiliza el renderizador integrado y el sistema de entrada clásico; no se necesita URP, TextMesh Pro ni paquetes de terceros.
+La escena ya está guardada con sus referencias y añadida a compilación. Usa el renderizador integrado y la entrada clásica; no requiere paquetes de terceros ni servicios externos.
 
-## Controles
+## Los tres niveles
+
+| Nivel | Clase interactiva | Examen final |
+| --- | --- | --- |
+| 1. Regiones del Ecuador | Costa, Sierra, Amazonía e Insular; fichas con paisajes esquemáticos | 3 preguntas |
+| 2. Ciudades y lugares | Quito, Cuenca y Galápagos; capital y tipos de patrimonio | 3 preguntas |
+| 3. Patrimonio cultural | Paja toquilla, pasillo y cuidado de los saberes culturales | 3 preguntas |
+
+Cada pregunta vale **1 punto**: máximo **3/3**, equivalente al **100 %**. Las respuestas se confirman una sola vez y no se pueden saltar preguntas. El resultado incluye la respuesta elegida, la correcta y una explicación. Repetir reinicia el score actual; el mejor resultado de cada nivel se conserva en el menú **durante la sesión**, incluso al cambiar de tema. Cerrar la aplicación borra ese registro. Volver al menú durante un examen descarta el intento sin terminar; al entrar a un nivel se empieza una clase nueva.
+
+## Controles y accesibilidad visual
 
 | Acción | Control |
 | --- | --- |
-| Caminar | W, A, S, D |
-| Mirar | Ratón |
-| Abrir / cerrar la lección | E |
-| Cerrar lección / liberar cursor | Esc |
-| Recuperar control del ratón | Clic en Game fuera de la lección |
-| Cambiar página / responder | Botones con el ratón |
-| Tamaño de texto de la lección | A− / A+ (22–30) |
+| Caminar / mirar | WASD / ratón |
+| Abrir clase / volver al aula | E |
+| Cerrar lectura / liberar cursor | Esc |
+| Elegir otro nivel | M o botón Volver al menú |
+| Recuperar control de cámara | Clic en Game fuera de la lectura |
+| Explorar fichas / responder / confirmar | Botones con ratón |
+| Desplazarse por contenido | Rueda o barra de desplazamiento |
+| Ajustar texto | A− / A+ (22–32) |
 
-La lectura pausa el desplazamiento y libera el cursor. Las instrucciones, avisos de proximidad y respuestas aparecen por escrito, sin depender solo del color. Las páginas no avanzan automáticamente. Resolución recomendada: 1280 × 800 o superior; la interfaz se escala en pantallas menores.
+- Panel de lectura **completamente opaco y oscuro**: el texto 3D de la pizarra no se transparenta.
+- Texto claro, botones grandes, ilustraciones esquemáticas con descripción escrita y estados nombrados (no dependen solo del color).
+- Sin audio, cronómetro ni avance automático. Todas las instrucciones, respuestas y explicaciones son visibles.
+- La lectura pausa el desplazamiento y libera el cursor. El contenido se puede desplazar con texto grande.
+- Resolución recomendada: 1280 × 800 o superior. La interfaz escala en pantallas menores.
 
-## Contenido
+El prototipo está orientado a estudiantes sordos o con discapacidad auditiva. **No incluye traducción a lengua de señas ecuatoriana** ni afirma que el texto cubra las preferencias de todas las personas sordas. No enseña señas. Las ilustraciones son recursos esquemáticos originales, no mapas ni representaciones de señas. Se requiere evaluación con estudiantes y docentes de la comunidad sorda antes de afirmar accesibilidad validada.
 
-- Aula de 12 × 14 metros con piso, cuatro paredes, seis mesas, seis sillas, iluminación y pizarra.
-- Colisiones con el aula, los muebles y la pizarra; controlador con gravedad y cámara a altura de los ojos.
-- Interacción mediante raycast desde el centro de la cámara: requiere distancia y visión directa.
-- Tres páginas educativas y una pregunta de comprobación con feedback escrito y reintento.
-- `Assets/Scripts/FirstPersonController.cs`: cámara, WASD, gravedad y cursor.
-- `Assets/Scripts/ClassroomLesson.cs`: interacción y lección visual.
-- `Assets/Scripts/Blackboard.cs`: identifica la superficie interactiva.
-- `Assets/Editor/ClassroomProject.cs`: generación reproducible de la escena y comprobación automática en Play Mode.
-- `Assets/Models/Mesa.obj` y `Silla.obj`: modelos originales, sencillos, utilizados en la escena.
+## Archivos principales
 
-## Modelos y Blender
+- `Assets/Scenes/AulaInclusiva.unity`: aula con piso, paredes, seis mesas, seis sillas y pizarra.
+- `Assets/Scripts/FirstPersonController.cs`: WASD, cámara, gravedad, cursor y posición inicial.
+- `Assets/Scripts/ClassroomLesson.cs`: menú, fichas, práctica, exámenes, score y panel opaco.
+- `Assets/Scripts/EcuadorContent.cs`: contenido editable de los tres niveles y nueve preguntas.
+- `Assets/Scripts/LearningIllustrations.cs`: dibujos esquemáticos generados en Unity, sin descargar imágenes.
+- `Assets/Scripts/Blackboard.cs`: identifica la pizarra interactiva.
+- `Assets/Editor/ClassroomProject.cs`: genera la escena, compila para Windows y ejecuta pruebas de Play Mode.
+- `Documentation/FUENTES.md`: fuentes oficiales y alcance del contenido educativo.
+- `Documentation/VALIDACION.md` y `RESULTADOS.txt`: pruebas realizadas y limitaciones.
 
-En Blender usa **File > Import > Wavefront (.obj)** para abrir los modelos de `Assets/Models`. Sus coordenadas se expresan en metros; no requieren texturas externas. Los colores se asignan mediante materiales de Unity. Piso, paredes y pizarra usan cubos nativos de Unity.
+## Blender y modelos
 
-Los OBJ se pueden regenerar con Python 3: `python Tools/generate_models.py` (esto reemplaza ambos OBJ). Para actualizar la escena después de cambiar modelos, usa el menú **Aula Inclusiva > Regenerar escena**. **Este comando reemplaza la escena del prototipo**; guarda una copia si hiciste cambios manuales.
+En Blender usa **File > Import > Wavefront (.obj)** para abrir `Assets/Models/Mesa.obj` y `Silla.obj`. Son modelos originales en metros y se usan en la escena; los colores se asignan con materiales de Unity. Piso, paredes y pizarra usan cubos nativos.
 
-## Comprobación
+`python Tools/generate_models.py` regenera y reemplaza ambos OBJ. El menú de Unity **Aula Inclusiva > Regenerar escena** reemplaza la escena del prototipo; guarda una copia antes si la editaste manualmente.
 
-Consulta `Documentation/VALIDACION.md` para los resultados reales y las limitaciones de las pruebas. Para repetir la comprobación con el editor cerrado, ejecuta desde PowerShell, sustituyendo las rutas:
+## Pruebas y compilación
+
+Con el editor cerrado, ajusta las rutas y ejecuta:
 
 ```powershell
 & 'C:\Program Files\Unity\Hub\Editor\6000.0.80f1\Editor\Unity.exe' -batchmode -nographics -projectPath 'C:\ruta\al\repositorio' -executeMethod ClassroomProject.SmokeTest -logFile 'C:\ruta\smoke.log'
 ```
 
-No agregues `-quit` a la prueba: el método entra en Play Mode y termina con código 0 si pasa, 1 si falla. El log debe contener `AULA_SMOKE_TEST_PASSED`. La prueba comprueba movimiento, distancia, raycast, apertura y cierre de lectura, navegación, respuestas y bloqueo por colisiones. No simula teclas físicas ni evalúa legibilidad con usuarios.
+No agregues `-quit`: el método entra en Play Mode y sale con código 0 si pasa, 1 si falla. Busca `AULA_SMOKE_TEST_PASSED`. La prueba cubre los tres niveles, desbloqueo de examen, resultados perfectos y de cero puntos, reinicio y protección ante puntuación duplicada, además del movimiento e interacción.
 
-Para generar un ejecutable: **File > Build Profiles**, selecciona Windows y verifica que `AulaInclusiva` está en la lista de escenas; usa **Build**. Instala el módulo Windows Build Support si Unity Hub lo solicita.
+Para generar un ejecutable: **File > Build Profiles > Windows > Build** con la escena `AulaInclusiva` incluida. O ejecuta:
 
-## Guion de presentación (2 minutos)
+```powershell
+& 'C:\Program Files\Unity\Hub\Editor\6000.0.80f1\Editor\Unity.exe' -batchmode -buildTarget Win64 -projectPath 'C:\ruta\al\repositorio' -executeMethod ClassroomProject.PreviewAndBuild -quit -logFile 'C:\ruta\build.log'
+```
 
-1. Explica que la actividad comunica toda su información mediante texto.
-2. Recorre el pasillo y muestra el aviso de interacción al acercarte.
-3. Abre la pizarra, aumenta el texto y recorre las páginas sin prisa.
-4. Responde primero A para mostrar el reintento y luego B para completar la actividad.
-5. Cierra la lección y vuelve a caminar.
+Este último comando regenera la escena, guarda la vista 3D `Documentation/Aula.png` y compila en `Builds/AulaInclusiva3D`. Para distribuir la aplicación conserva el `.exe` junto con todas sus carpetas y DLL; no copies solo el ejecutable.
 
-## Alcance
+## Presentación universitaria
 
-Es un prototipo educativo de escritorio, no una aplicación VR ni una herramienta de enseñanza de lengua de señas. No incluye traducción automática, avatares de señas ni audio. La accesibilidad está orientada a la comunicación visual; no se afirma conformidad con normas ni validación con personas usuarias. Una futura evaluación debe realizarse con la comunidad sorda y ajustar las preferencias de comunicación a sus necesidades.
+Muestra los tres temas en el menú, entra en uno, camina a la pizarra, explora las fichas y aumenta el texto. Resuelve la práctica, completa el examen y muestra el score y la revisión. Vuelve al menú para mostrar el mejor resultado y elegir otro nivel. Toda la demostración puede hacerse sin sonido.
 
-Vista de la cámara del aula (sin interfaz):
-
-![Aula 3D](Documentation/Aula.png)
+![Menú de tres niveles](Documentation/Menu.png)

@@ -1,11 +1,41 @@
 PASS: One interactive board
+PASS: Starts in topic menu with navigation paused
+PASS: Exactly three levels
 PASS: Board inaccessible from starting position
 PASS: Forward movement
 PASS: Raycast reaches board at reading distance
 PASS: Interaction opens lesson and pauses navigation
-PASS: Lesson navigation
-PASS: Incorrect answer permits retry
-PASS: Correct answer completes lesson
+PASS: Exam locked before exploring and practicing
+PASS: Wrong practice permits retry, level 0
+PASS: Exploration and correct practice unlock exam, level 0
+PASS: Cannot skip unanswered question
+PASS: Repeated confirmation cannot inflate score
+PASS: Repeated confirmation cannot inflate score
+PASS: Repeated confirmation cannot inflate score
+PASS: Perfect score and result, level 0
+PASS: Retry resets score
+PASS: Wrong answers score zero and preserve best, level 0
+PASS: Menu stops navigation
+PASS: Wrong practice permits retry, level 1
+PASS: Exploration and correct practice unlock exam, level 1
+PASS: Cannot skip unanswered question
+PASS: Repeated confirmation cannot inflate score
+PASS: Repeated confirmation cannot inflate score
+PASS: Repeated confirmation cannot inflate score
+PASS: Perfect score and result, level 1
+PASS: Retry resets score
+PASS: Wrong answers score zero and preserve best, level 1
+PASS: Menu stops navigation
+PASS: Wrong practice permits retry, level 2
+PASS: Exploration and correct practice unlock exam, level 2
+PASS: Cannot skip unanswered question
+PASS: Repeated confirmation cannot inflate score
+PASS: Repeated confirmation cannot inflate score
+PASS: Repeated confirmation cannot inflate score
+PASS: Perfect score and result, level 2
+PASS: Retry resets score
+PASS: Wrong answers score zero and preserve best, level 2
+PASS: Menu stops navigation
 PASS: Closing restores navigation
 PASS: Board collider blocks movement
 AULA_SMOKE_TEST_PASSED

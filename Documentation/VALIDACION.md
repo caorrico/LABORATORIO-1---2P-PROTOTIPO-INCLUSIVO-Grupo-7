@@ -1,48 +1,35 @@
-# Validación — Aula Inclusiva 3D
+# Validación · tres niveles de cultura ecuatoriana
 
-Fecha: 16 de noviembre de 2026 (America/Guayaquil).
 Entorno: Windows, Unity 6.0 LTS `6000.0.80f1`.
 
-## Repositorio
+## Pruebas automáticas reales
 
-Se revisó el commit inicial `a622a1f`: solo contenía `.gitignore`, que se conservó sin modificaciones. El proyecto se añadió en la raíz en una rama independiente.
+`ClassroomProject.SmokeTest` ejecutó **40 comprobaciones** en Play Mode y terminó con código 0 y `AULA_SMOKE_TEST_PASSED`. La evidencia resumida está en `RESULTADOS.txt`.
 
-## Ejecución real en Unity
+- Inicio en menú con navegación pausada y exactamente tres niveles.
+- Entrada al aula, movimiento, distancia y raycast hacia la pizarra.
+- Apertura y cierre de la lectura con pausa de navegación.
+- Examen bloqueado hasta explorar las fichas y resolver la práctica.
+- En cada nivel: práctica incorrecta con reintento, desbloqueo, imposibilidad de saltar preguntas, score perfecto 3/3, resultado 0/3, reinicio del score y conservación del mejor resultado.
+- Confirmar la misma respuesta varias veces no aumenta la puntuación.
+- Regresar al menú pausa el movimiento; la pizarra bloquea físicamente al jugador.
 
-La generación de escena terminó con código de salida 0 y `AULA_GENERATED`.
-La prueba se ejecutó en Play Mode mediante `ClassroomProject.SmokeTest`, en batchmode sin gráficos. Terminó con código 0 y `AULA_SMOKE_TEST_PASSED`.
+La prueba usa los mismos métodos que activa la interfaz, pero no simula clics físicos en las preguntas.
 
-| Comprobación | Resultado |
-| --- | --- |
-| Existe exactamente una pizarra interactiva | PASS |
-| No se puede interactuar desde el punto inicial | PASS |
-| El CharacterController se desplaza hacia adelante | PASS |
-| El raycast alcanza la pizarra a distancia de lectura | PASS |
-| La interacción abre la lectura y activa el estado de pausa de navegación | PASS |
-| Se puede llegar a la tercera página | PASS |
-| Una respuesta incorrecta permite reintentar | PASS |
-| La respuesta correcta completa la actividad | PASS |
-| Cerrar restaura el estado de navegación | PASS |
-| La colisión de la pizarra impide atravesarla | PASS |
+## Compilación
 
-Las comprobaciones llaman a los mismos métodos usados por el flujo de juego; no inyectan pulsaciones físicas de teclado o clics.
+`ClassroomProject.PreviewAndBuild` compiló Windows x86_64 correctamente: `Succeeded`, salida 0 y `AULA_WINDOWS_BUILD_PASSED`. El ejecutable está en `Builds/AulaInclusiva3D`, excluido de Git junto con la caché de Unity. La captura `Aula.png` contiene la escena 3D, sin interfaz.
 
-## Vista del aula
+## Revisión del ejecutable independiente
 
-Se generó `Aula.png` renderizando la cámara real de la escena a 1280 × 800. Se inspeccionó visualmente: muebles presentes, pasillo central libre y texto de la pizarra orientado y legible. Esta captura contiene solo la escena 3D, sin la interfaz IMGUI.
+Se abrió la aplicación Windows y se inspeccionó el menú con sus tres temas, ilustraciones, botones y fondo opaco. Se probó la elección del nivel 1 y el movimiento W. La revisión detectó texto recortado en los botones del menú; se corrigió la altura y se volvió a compilar. En la compilación final se verificaron los tres botones legibles y el aumento del tamaño de texto.
 
-![Vista de la cámara del aula](Aula.png)
+![Menú de tres niveles en el ejecutable final](Menu.png)
 
-## Límites
+El color de fondo de lectura es sólido `RGB(0.035, 0.05, 0.075)`, alfa 1; la interfaz ya no usa el panel semitransparente predeterminado. El contenido se coloca en una vista desplazable para acomodar texto grande.
 
-La prueba automática sin gráficos no evalúa la distribución de la interfaz, la sensibilidad del ratón ni la interacción mediante dispositivos físicos. No se han realizado pruebas con personas sordas o con discapacidad auditiva. Antes de la exposición se recomienda ejecutar el guion del README en el equipo y pantalla que se utilizarán.
+## Límites de la validación
 
-## Compilación Windows
+No se completaron los tres exámenes mediante clics físicos en el ejecutable: se comprobaron automáticamente en Play Mode. Antes de exponer se recomienda recorrer clase, práctica y examen con la pantalla y dispositivos que se utilizarán. No se ha realizado una evaluación con estudiantes sordos o docentes de la comunidad sorda. El prototipo no incluye lengua de señas ecuatoriana ni declara cumplimiento de una norma de accesibilidad.
 
-`ClassroomProject.PreviewAndBuild` completó la compilación Windows x86_64 con resultado `Succeeded`, código de salida 0 y `AULA_WINDOWS_BUILD_PASSED`. El ejecutable y sus dependencias se generan en `Builds/AulaInclusiva3D` y se excluyen del control de versiones. Se verificó la compilación; el ejecutable independiente no fue probado manualmente.
-
-Para repetir la generación de captura y compilación (reemplaza la escena y los modelos de escena, conserva los OBJ), ejecuta con el editor cerrado:
-
-```powershell
-& 'C:\Program Files\Unity\Hub\Editor\6000.0.80f1\Editor\Unity.exe' -batchmode -buildTarget Win64 -projectPath 'C:\ruta\al\repositorio' -executeMethod ClassroomProject.PreviewAndBuild -quit -logFile 'C:\ruta\build.log'
-```
+Los comandos para repetir las pruebas y la compilación están en el README.
